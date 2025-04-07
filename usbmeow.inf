@@ -1,0 +1,48 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+ClassGuid={36fc9e60-c465-11cf-8056-444553540000}
+Provider=%ManufacturerName%
+DriverVer=04/06/2025,1.0.0.0
+CatalogFile=meow.cat
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%DeviceName%=Install, USB\ROOT_HUB30
+
+[Install.NT]
+CopyFiles=DriverCopy
+AddReg=DriverReg
+
+[Install.NT.Services]
+AddService=USBMeow, 0x00000002, Service_Install
+
+[Service_Install]
+DisplayName=%ServiceName%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\meow.sys
+
+[DriverCopy]
+meow.sys
+
+[DriverReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,meow.sys
+
+[DestinationDirs]
+DriverCopy=12
+
+[SourceDisksFiles]
+meow.sys=1
+
+[SourceDisksNames]
+1="USBMeow Driver Disk",,,
+
+[Strings]
+ManufacturerName="Benjamin"
+DeviceName="USB Meow Filter"
+ServiceName="USB Meow Filter Driver"
